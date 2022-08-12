@@ -1,0 +1,46 @@
+class Usuario{
+
+    constructor(nombre,apellido,libros,mascotas)
+    {
+        this.nombre=nombre;
+        this.apellido=apellido;
+        this.libros=libros;
+        this.mascotas=mascotas;
+    }
+    getFullName(){
+        return( `Nombre completo: ${this.nombre} ${this.apellido}`)
+    }
+    addMascota(mascota){
+        this.mascotas.push(mascota)
+    }
+    countMascotas(){
+        return this.mascotas.length
+    }
+    addBook(titulo,autor){
+        let newBook = {titulo:titulo,autor:autor}
+        this.libros.push(newBook)
+    }
+
+    getBookNames(){
+        let bookTitles=[]
+        let book;
+        for(let i=0;i<this.libros.length;i++){
+           book =this.libros[i]
+           bookTitles.push(book.titulo)
+            
+        }
+        return bookTitles;
+    }
+}
+
+const usuario1 = new Usuario("Juan Manuel","Fernandez Cozzuol",[{titulo:"la torre oscura",autor:"Stephen King"},{titulo:"Harry Potter 1",autor:"J K Rowling"}],["tiburcio","felipe","galilei"]);
+
+console.log(usuario1.getFullName())
+console.log(usuario1.countMascotas())
+usuario1.addMascota("Isa")
+console.log(usuario1.countMascotas())
+console.log(usuario1.mascotas[3])
+console.log(usuario1.getBookNames())
+usuario1.addBook("Las Cronicas de Narnia","C.S. Lewis")
+console.log(usuario1.getBookNames())
+console.log(usuario1.libros[2])
