@@ -17,7 +17,6 @@ class Contenedor{
     async save(product){
         try{
             const contenido = await fs.promises.readFile("productos.txt","utf-8")
-            console.log(contenido.length)
 
             if(contenido.length == 0)
             {   
@@ -31,10 +30,10 @@ class Contenedor{
                 
                    
                     const contenidoJson = JSON.parse(contenido.toString().trim())
-                    product.id = contenidoJson.length + 1
+                    product.id = contenidoJson.slice(-1)[0].id+1
                     contenidoJson.push(product)
                     await fs.promises.writeFile("productos.txt",JSON.stringify(contenidoJson))
-                    console.log(contenidoJson)
+                   console.log("nuevo producto guardado:",contenidoJson)
                     return product.id
                 
                 
@@ -51,8 +50,8 @@ class Contenedor{
     async getById(number){
         try{
             const contenido = await fs.promises.readFile("productos.txt","utf-8")
-            const contenidoJson = JSON.parse(contenido.toString().trim())
-            console.log(contenidoJson[number-1])
+            const contenidoJson = JSON.parse(contenido)
+            console.log("elemento pedido por id:",contenidoJson[number-1])
             return contenidoJson[number-1]
         }
         catch(err){
@@ -64,8 +63,8 @@ class Contenedor{
     async getAll(){
         try{
             const contenido = await fs.promises.readFile("productos.txt","utf-8")
-            const contenidoJson = JSON.parse(contenido.toString().trim())
-            console.log(contenidoJson)
+            const contenidoJson = JSON.parse(contenido)
+            console.log("contenido completo:",contenidoJson)
             return(contenidoJson)
         }
         catch(err){
@@ -80,10 +79,10 @@ class Contenedor{
     
         try{
             const contenido = await fs.promises.readFile("productos.txt","utf-8")
-            const contenidoJson = JSON.parse(contenido.toString().trim())
+            const contenidoJson = JSON.parse(contenido)
             console.log(contenidoJson)
             contenidoJson.splice(number-1,1)
-            console.log(contenidoJson)
+            console.log("elemento borrado por id:",contenidoJson)
             await fs.promises.writeFile("productos.txt",JSON.stringify(contenidoJson))
         }
         catch(err){
@@ -95,6 +94,7 @@ class Contenedor{
 
         try{
             await fs.promises.unlink("productos.txt")
+            console.log("revisar archivo")
         }
         catch(err){
             console.log(err)
@@ -102,14 +102,16 @@ class Contenedor{
     }
 }
 
-let producto = new Producto ("apples",10,"foto de manzanas")
+let producto = new Producto ("apples",10,"https://www.collinsdictionary.com/images/full/apple_158989157.jpg")
 let producto1 = new Producto ("banana",20,"foto de bananas")
 let producto2 = new Producto ("naranjas",120,"foto de naranjas")
 let contenedor = new Contenedor("productos.txt")
 
 
+
+//Probar metodos uno a uno, todos muestran por consola lo que hacen.
 contenedor.save(producto)
-
-
-
-
+// contenedor.getById(2)
+// contenedor.getAll()
+// contenedor.deleteById(2)
+// contenedor.deleteAll()
