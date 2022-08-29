@@ -11,40 +11,48 @@ class Producto {
     
 class Contenedor{
     constructor(fileName){
-        this.fileName = fileName
+         this.fileName = fileName
+        
+      
     }
         
     async save(product){
-        try{
-            const contenido = await fs.promises.readFile("productos.txt","utf-8")
+        if(fs.existsSync('productos.txt'))  
+        {
+            try{
+                const contenido = await this.getAll()
 
-            if(contenido.length == 0)
-            {   
-                
-                    product.id=1
-                  
-                    await fs.promises.appendFile("productos.txt",JSON.stringify([product]))
-                    return product.id
-            }
-            else{
-                
-                   
-                    const contenidoJson = JSON.parse(contenido.toString().trim())
-                    product.id = contenidoJson.slice(-1)[0].id+1
-                    contenidoJson.push(product)
-                    await fs.promises.writeFile("productos.txt",JSON.stringify(contenidoJson))
-                   console.log("nuevo producto guardado:",contenidoJson)
-                    return product.id
-                
-                
-                
-            }
+                if(contenido.length == 0)
+                {   
+                    
+                        product.id=1
+                    
+                        await fs.promises.appendFile("productos.txt",JSON.stringify([product]))
+                        return product.id
+                }
+                else{
+                    
+                        
+                        
+                        product.id = contenido.slice(-1)[0].id+1
+                        contenido.push(product)
+                        await fs.promises.writeFile("productos.txt",JSON.stringify(contenido))
+                    console.log("nuevo producto guardado:",contenido)
+                        return product.id
+                    
+                    
+                    
+                }
 
+            }
+            catch(err){
+                console.log(err)
+                
+            }
         }
-        catch(err){
-            console.log(err)
-            
-        }
+        else{
+            console.log("el archivo no existe.")
+        }     
     }
 
     async getById(number){
@@ -52,7 +60,13 @@ class Contenedor{
             const contenido = await fs.promises.readFile("productos.txt","utf-8")
             const contenidoJson = JSON.parse(contenido)
             console.log("elemento pedido por id:",contenidoJson[number-1])
-            return contenidoJson[number-1]
+            if (number <=contenidoJson.length){ 
+                return contenidoJson[number-1]
+            }
+            else{
+                 console.log("no se encontró el item deseado")
+            }
+           
         }
         catch(err){
             console.log(err)
@@ -81,9 +95,14 @@ class Contenedor{
             const contenido = await fs.promises.readFile("productos.txt","utf-8")
             const contenidoJson = JSON.parse(contenido)
             console.log(contenidoJson)
-            contenidoJson.splice(number-1,1)
-            console.log("elemento borrado por id:",contenidoJson)
-            await fs.promises.writeFile("productos.txt",JSON.stringify(contenidoJson))
+            if (number <= contenidoJson.length){
+                contenidoJson.splice(number-1,1)
+                console.log("elemento borrado por id:",contenidoJson)
+                await fs.promises.writeFile("productos.txt",JSON.stringify(contenidoJson))
+            }
+           else{
+                console.log("no se encontró el item deseado")
+           }
         }
         catch(err){
             console.log(err)
