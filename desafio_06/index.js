@@ -40,10 +40,10 @@ io.on('connection', (socket) =>{
         socket.emit("updateProducts",{productos})
     })
 
-    // socket.emit("server-message","Este es un mensaje desde el servidor!")
-    //servidor escuchando y re emitiendo
-    socket.on("message",(data)=>{
-        io.emit("server-message",data)
+
+    socket.on('newProduct',(data)=>{
+
+        contenedor.save(data)
     })
 
 })

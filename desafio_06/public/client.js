@@ -16,3 +16,14 @@ fetch("/list.hbs")
 }
 
 socket.on("updateProducts",(data)=>updateProducts(data))
+
+
+
+document.getElementById('product-form').addEventListener('submit',(e)=>{
+
+    e.preventDefault()
+    const formData = new FormData(e.target);
+    const inputsData = Object.fromEntries(formData);
+    document.getElementById('product-form').reset()
+    socket.emit('newProduct', inputsData )
+})
