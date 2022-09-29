@@ -1,0 +1,26 @@
+[{
+    "title": "Escuadra",
+    "price": 123.45,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/ruler-triangle-stationary-school-256.png",
+    "id": 1
+}, {
+    "title": "Calculadora",
+    "price": 234.56,
+    "thumbnail": "https://cdn3.iconfinder.com/data/icons/education-209/64/calculator-math-tool-school-256.png",
+    "id": 2
+}, {
+    "title": "Globo Terraqueo",
+    "price": 345.67,
+    "thumbnail": "https://cdn4.iconfinder.com/data/icons/small-n-flat/24/globe-512.png",
+    "id": 3
+}, {
+    "title": "Pava",
+    "price": "45.78",
+    "thumbnail": "https://cdn4.iconfinder.com/data/icons/kitchen-tool-set-1/3300/kettle-512.png",
+    "id": 4
+}, {
+    "title": "taza",
+    "price": "14.14",
+    "thumbnail": "https://cdn1.iconfinder.com/data/icons/rcons-basic-work-and-office/16/kitchen_restaurant_coffee_food_drink_tea_cup-512.png",
+    "id": 5
+}]
