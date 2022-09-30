@@ -11,6 +11,7 @@ const httpServer = new HttpServer(app)
 
 
 const contenedor = new Contenedor("productos.json")
+const chatHistory = new Contenedor("mensajes.json")
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
@@ -40,10 +41,20 @@ io.on('connection', (socket) =>{
         socket.emit("updateProducts",{productos})
     })
 
+    chatHistory.getAll().then(mensajes =>{
+        socket.emit("updateMessages",{mensajes})
+    })
 
     socket.on('newProduct',(data)=>{
 
         contenedor.save(data)
+        .then(()=>{
+        contenedor.getAll()
+            .then(productos =>{
+                io.emit("updateProducts",{productos})
+            })
+
+        })
     })
 
 })

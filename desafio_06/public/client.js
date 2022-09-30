@@ -1,12 +1,13 @@
 const socket = io()
 const productList = document.getElementById('product-list');
+const chat = document.getElementById('chat')
 
 
 const updateProducts =(productos) =>{
 fetch("/list.hbs")
     .then(data => data.text()) 
     .then(text =>{
-        console.log(productos)
+    
         const template = Handlebars.compile(text)
   
         productList.innerHTML = template(productos)
@@ -15,8 +16,21 @@ fetch("/list.hbs")
     })
 }
 
-socket.on("updateProducts",(data)=>updateProducts(data))
+const updateMessages =(mensajes) =>{
+    fetch("/chat.hbs")
+        .then(data => data.text()) 
+        .then(text =>{
+         
+            const template = Handlebars.compile(text)
+      
+          chat.innerHTML = template(mensajes)
+            
+    
+        })
+    }
 
+socket.on("updateProducts",(data)=>updateProducts(data))
+socket.on("updateMessages",(data)=>updateMessages(data))
 
 
 document.getElementById('product-form').addEventListener('submit',(e)=>{
