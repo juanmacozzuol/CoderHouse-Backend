@@ -1,6 +1,7 @@
 const socket = io()
 const productList = document.getElementById('product-list');
-const chat = document.getElementById('chat')
+
+
 
 
 const updateProducts =(productos) =>{
@@ -18,6 +19,7 @@ fetch("/list.hbs")
 
 const updateMessages =(mensajes) =>{
     fetch("/chat.hbs")
+        
         .then(data => data.text()) 
         .then(text =>{
          
@@ -40,4 +42,14 @@ document.getElementById('product-form').addEventListener('submit',(e)=>{
     const inputsData = Object.fromEntries(formData);
     document.getElementById('product-form').reset()
     socket.emit('newProduct', inputsData )
+})
+
+document.getElementById('chat-form').addEventListener('submit',(e)=>{
+    e.preventDefault()
+    console.log("chat")
+    const formData = new FormData(e.target);
+    const inputsData = Object.fromEntries(formData);
+    inputsData.timestamp = new Date(Date.now()).toUTCString()
+    socket.emit('newMessage', inputsData )
+    
 })

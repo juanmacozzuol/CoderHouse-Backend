@@ -57,5 +57,17 @@ io.on('connection', (socket) =>{
         })
     })
 
+    socket.on('newMessage',(data)=>{
+        console.log(data)
+        chatHistory.save(data)
+        .then(()=>{
+        chatHistory.getAll()
+            .then(mensajes =>{
+                io.emit("updateMessages",{mensajes})
+            })
+
+        })
+    })
+
 })
 

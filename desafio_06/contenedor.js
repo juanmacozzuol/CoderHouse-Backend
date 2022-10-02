@@ -17,7 +17,7 @@ class Contenedor{
     }
         
     async save(product){
-        if(fs.existsSync('productos.json'))  
+        if(fs.existsSync(this.fileName))  
         {
             try{
                 const contenido = await this.getAll()
@@ -27,7 +27,7 @@ class Contenedor{
                     
                         product.id=1
                     
-                        await fs.promises.appendFile("productos.json",JSON.stringify([product]))
+                        await fs.promises.appendFile(this.fileName,JSON.stringify([product]))
                         return product.id
                 }
                 else{
@@ -36,7 +36,7 @@ class Contenedor{
                         
                         product.id = contenido.slice(-1)[0].id+1
                         contenido.push(product)
-                        await fs.promises.writeFile("productos.json",JSON.stringify(contenido))
+                        await fs.promises.writeFile(this.fileName,JSON.stringify(contenido))
                     
                         return product.id
                     
@@ -57,7 +57,7 @@ class Contenedor{
 
     async getById(number){
         try{
-            const contenido = await fs.promises.readFile("productos.json","utf-8")
+            const contenido = await fs.promises.readFile(this.fileName,"utf-8")
             const contenidoJson = JSON.parse(contenido)
             
             if (number <=contenidoJson.length){ 
@@ -76,7 +76,7 @@ class Contenedor{
 
     async getAll(){
         try{
-            const contenido = await fs.promises.readFile("productos.json","utf-8")
+            const contenido = await fs.promises.readFile(this.fileName,"utf-8")
             const contenidoJson = JSON.parse(contenido)
             return(contenidoJson)
         }
@@ -91,13 +91,13 @@ class Contenedor{
     async deleteById(number){
     
         try{
-            const contenido = await fs.promises.readFile("productos.json","utf-8")
+            const contenido = await fs.promises.readFile(this.fileName,"utf-8")
             const contenidoJson = JSON.parse(contenido)
             
             if (number <= contenidoJson.length){
                 contenidoJson.splice(number-1,1)
                 
-                await fs.promises.writeFile("productos.json",JSON.stringify(contenidoJson))
+                await fs.promises.writeFile(this.fileName,JSON.stringify(contenidoJson))
             }
            else{
                 console.log("no se encontró el item deseado")
@@ -111,7 +111,7 @@ class Contenedor{
     async deleteAll(){
 
         try{
-            await fs.promises.unlink("productos.json")
+            await fs.promises.unlink(this.fileName)
             console.log("revisar archivo")
         }
         catch(err){
@@ -121,7 +121,7 @@ class Contenedor{
 
     async modifyById(newArray){
         try{
-            fs.promises.writeFile("productos.json",JSON.stringify(newArray))
+            fs.promises.writeFile(this.fileName,JSON.stringify(newArray))
         }
         catch{
             console.log(err)
