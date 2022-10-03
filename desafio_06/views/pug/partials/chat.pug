@@ -1,5 +1,4 @@
 section.mt-5
-    h2.mb-3 Chat
     #chat(style='height:200px;').mb-3.form-control.overflow-auto
     form#chat-form
         .row.mb-3
@@ -7,5 +6,5 @@ section.mt-5
                 input#user-mail.form-control(type='mail' name='mail' placeholder='Ingresa tu email...' required)
             .col-8
                 input#new-message.form-control.mb-1(type='text' name='text' placeholder='Ingresa tu mensaje...' required)
-                input.btn.btn-secondary.btn-sm(type='reset' value='Limpiar')
-                input.btn.btn-primary.btn-sm.ms-1(type='submit' value='Enviar')
+                input.btn.btn-primary(type='reset' value='Limpiar')
+                input.btn.btn-primary(type='submit' value='Enviar')
