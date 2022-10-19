@@ -1,0 +1,20 @@
+<main>
+
+{{#if mensajes.length }}
+    {{#each mensajes}}
+        <p>
+            <span class="fw-bold" style="color:blue;">
+                {{mail}}
+            </span>
+            <span class="ms-1" style="color:brown;">
+                {{timestampa}}
+            </span>
+            <span class="ms-1 fst-italic" style="color:green;">
+                {{texto}}
+            </span>
+        </p>
+    {{/each}}
+{{^}}
+    <p>Mensajes de chat</p>
+{{/if}} 
+</main>

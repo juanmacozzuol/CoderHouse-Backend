@@ -1,0 +1,10 @@
+section.mt-5
+    #chat(style='height:200px;').mb-3.form-control.overflow-auto
+    form#chat-form
+        .row.mb-3
+            .col-4
+                input#user-mail.form-control(type='mail' name='mail' placeholder='Ingresa tu email...' required)
+            .col-8
+                input#new-message.form-control.mb-1(type='text' name='texto' placeholder='Ingresa tu mensaje...' required)
+                input.btn.btn-primary(type='reset' value='Limpiar')
+                input.btn.btn-primary(type='submit' value='Enviar')

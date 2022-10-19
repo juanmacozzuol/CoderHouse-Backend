@@ -1,0 +1,27 @@
+<main>
+
+    {{#if productos.length }}
+        <table >
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Producto</th>
+                    <th>Fotografia</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each productos}}
+                <tr>
+                    <th>{{id}}</th>
+                    <td>{{title}}</td>
+                    <td><img src="{{ thumbnail}}" width="70px"></td>
+                    <td>{{price}} </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{^}}
+            <div class="alert alert-danger text-center my-5 p-3">No hay productos disponibles</div>
+         {{/if}}  
+</main>
